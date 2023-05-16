@@ -1,6 +1,14 @@
 import React from 'react'
 
-const Header = () => {
+const Header = (props) => {
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    const searchValue = event.target[0].value
+    props.onSubmit(searchValue)
+    event.target[0].value = ""
+  }
+
   return (
     <header className="header">
       <h1>Movie List</h1>
