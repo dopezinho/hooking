@@ -1,51 +1,57 @@
-import { useState, useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { MovieService } from "../api/MovieService"
+import './MovieDetail.scss'
 
 const MovieDetail = () => {
-  const {id} = useParams()
-  const [movie, setMovie] = useState({})
+  const { id } = useParams();
+  const [movie, setMovie] = useState({});
 
   async function getMovie() {
-    const { data } = await MovieService.getMovieDetails(id)
-    setMovie(data)
+    const { data } = await MovieService.getMovieDetails(id);
+    setMovie(data);
   }
 
   useEffect(() => {
-    getMovie()
-  }, [])
+    getMovie();
+  }, []);
+  
+
+  useEffect(() => {
+    console.log(movie);
+  })
 
   return (
-    <section className="movie-detail">
-      <div className="movie-detail__container">
-        <div className="movie-detail__col">
-          <h1 className="movie-detail__title">{MovieDetail.title}</h1>
-          <div className="movie-detail__image">
+    <section className="MovieDetail">
+      <div className="MovieDetail__container">
+        <div className="MovieDetail__col">          
+        <Link to={"/"} className="MovieDetail__button">
+        &#8701; Voltar
+        </Link>
+          <h1 className="MovieDetail__title">{movie.title}</h1>
+          <div className="MovieDetail__image">
             <img src={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`} alt="" />
           </div>
         </div>
-        <div className="movie-detail__col">
-          <div className="movie-detail__details">
-            <div className="movie-detail__detail">
-              <span>Budget:</span>{movie.budget}
-            </div>
-            <div className="movie-detail__detail">
-              <span>Original language:</span> {movie.original_language}
-            </div>
-            <div className="movie-detail__detail">
-              <span>Popularity:</span> {movie.popularity}
-            </div>
-            <div className="movie-detail__detail">
+        <div className="MovieDetail__col">
+          <div className="MovieDetail__details">
+            <div className="MovieDetail__detail">
               <span>Overview:</span> {movie.overview}
             </div>
-          </div>
-          <Link to={"/"} className="movie-detail__button" >
-            Voltar
-          </Link>
+            </div>
+            <div className="MovieDetail__detail">
+              <span>Budget:</span> {movie.budget}
+            </div>
+            <div className="MovieDetail__detail">
+              <span>Original language:</span> {movie.original_language}
+            </div>
+            <div className="MovieDetail__detail">
+              <span>Popularity:</span> {movie.popularity}
+            </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default MovieDetail
