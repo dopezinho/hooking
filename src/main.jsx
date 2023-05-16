@@ -1,16 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import App from "./App"
+import Home from "./views/Home"
+import MovieDetail from "./views/MovieDetail"
 import './index.scss'
 import { createBrowserRouter, RouterProvider, } from "react-router-dom";
-
-import React from 'react'
-
-export default main
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <App />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "/movie/:id",
+        element: <MovieDetail />
+      },
+    ],
   },
 ]);
 
@@ -19,3 +28,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
+
+
+export default main
